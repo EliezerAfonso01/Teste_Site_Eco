@@ -1,0 +1,1056 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ECO - Rede Social Educacional</title>
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet">
+    <style>
+        /* Modern Reset and Base Styles */
+        :root {
+            /* Blue Color Palette */
+            --primary-blue: #1A73E8;
+            --secondary-blue: #4285F4;
+            --light-blue: #E8F0FE;
+            --dark-blue: #185ABC;
+            
+            /* Neutral Colors */
+            --text-primary: #202124;
+            --text-secondary: #5F6368;
+            --background: #F1F3F4;
+            --white: #FFFFFF;
+            
+            /* Typography */
+            --font-primary: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+            
+            /* Shadows and Transitions */
+            --shadow-subtle: 0 2px 4px rgba(0,0,0,0.08);
+            --shadow-medium: 0 4px 12px rgba(0,0,0,0.12);
+            --transition-smooth: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: var(--font-primary);
+            background-color: var(--background);
+            color: var(--text-primary);
+            line-height: 1.6;
+        }
+
+        /* Layout */
+        .app-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 16px;
+        }
+
+        /* Header */
+        .header {
+            background-color: var(--white);
+            box-shadow: var(--shadow-subtle);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 0;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary-blue);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .logo i {
+            color: var(--secondary-blue);
+        }
+
+        .nav-menu {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .nav-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: var(--text-secondary);
+            text-decoration: none;
+            padding: 8px 12px;
+            border-radius: 8px;
+            transition: var(--transition-smooth);
+        }
+
+        .nav-item:hover {
+            background-color: var(--light-blue);
+            color: var(--primary-blue);
+        }
+
+        .nav-item.active {
+            background-color: var(--light-blue);
+            color: var(--primary-blue);
+            font-weight: 600;
+        }
+
+        .notifications-btn {
+            position: relative;
+            color: var(--text-secondary);
+            cursor: pointer;
+            transition: var(--transition-smooth);
+        }
+
+        .notifications-btn:hover {
+            color: var(--primary-blue);
+        }
+
+        .notifications-badge {
+            position: absolute;
+            top: -4px;
+            right: -4px;
+            background-color: #D93025;
+            color: white;
+            font-size: 0.6rem;
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* PDF Attachment Styles */
+        .pdf-attachment {
+            display: flex;
+            align-items: center;
+            background-color: var(--background);
+            padding: 12px;
+            border-radius: 8px;
+            margin-top: 12px;
+        }
+
+        .pdf-icon {
+            font-size: 2rem;
+            color: #D93025;
+            margin-right: 12px;
+        }
+
+        .pdf-details {
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .pdf-name {
+            font-weight: 500;
+            color: var(--text-primary);
+        }
+
+        .pdf-size {
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+        }
+
+        .pdf-download {
+            color: var(--primary-blue);
+            transition: var(--transition-smooth);
+        }
+
+        .pdf-download:hover {
+            transform: scale(1.1);
+        }
+
+        /* Image Gallery Styles */
+        .image-gallery {
+            margin-top: 12px;
+        }
+
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 8px;
+        }
+
+        .gallery-grid img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            transition: var(--transition-smooth);
+        }
+
+        .gallery-grid img:hover {
+            transform: scale(1.02);
+            box-shadow: var(--shadow-subtle);
+        }
+
+        /* Tabs */
+        .tabs-container {
+            background-color: var(--white);
+            box-shadow: var(--shadow-subtle);
+            margin-bottom: 24px;
+        }
+
+        .tabs {
+            display: flex;
+            justify-content: center;
+            gap: 24px;
+            padding: 12px 0;
+        }
+
+        .tab {
+            cursor: pointer;
+            color: var(--text-secondary);
+            position: relative;
+            padding-bottom: 8px;
+            transition: var(--transition-smooth);
+        }
+
+        .tab.active {
+            color: var(--primary-blue);
+            font-weight: 600;
+        }
+
+        .tab.active::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background-color: var(--primary-blue);
+        }
+
+        /* Content Sections */
+        .content-section {
+            display: none;
+        }
+
+        .content-section.active {
+            display: block;
+        }
+
+        /* Feed Posts */
+        .post {
+            background-color: var(--white);
+            border-radius: 12px;
+            box-shadow: var(--shadow-subtle);
+            margin-bottom: 16px;
+            overflow: hidden;
+            transition: var(--transition-smooth);
+        }
+
+        .post:hover {
+            box-shadow: var(--shadow-medium);
+        }
+
+        .post-header {
+            display: flex;
+            align-items: center;
+            padding: 16px;
+            background-color: var(--light-blue);
+        }
+
+        .post-avatar {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            background-color: var(--primary-blue);
+            color: var(--white);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            margin-right: 12px;
+        }
+
+        .post-content {
+            padding: 16px;
+        }
+
+        .post-actions {
+            display: flex;
+            justify-content: space-between;
+            padding: 12px 16px;
+            border-top: 1px solid var(--background);
+        }
+
+        .action-btn {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: var(--text-secondary);
+            cursor: pointer;
+            transition: var(--transition-smooth);
+        }
+
+        .action-btn:hover {
+            color: var(--primary-blue);
+        }
+
+        /* Courses and Library Styles */
+        .courses-container, .library-container {
+            display: grid;
+            grid-template-columns: 3fr 1fr;
+            gap: 24px;
+        }
+
+        .course-list, .book-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 16px;
+        }
+
+        .course-card, .book-card {
+            background-color: var(--white);
+            border-radius: 12px;
+            box-shadow: var(--shadow-subtle);
+            overflow: hidden;
+            transition: var(--transition-smooth);
+        }
+
+        .course-card:hover, .book-card:hover {
+            box-shadow: var(--shadow-medium);
+            transform: translateY(-5px);
+        }
+
+        .course-card-image, .book-card-image {
+            height: 200px;
+            overflow: hidden;
+        }
+
+        .course-card-image img, .book-card-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .course-card-content, .book-card-content {
+            padding: 16px;
+        }
+
+        .course-title, .book-title {
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+
+        .course-details, .book-details {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 12px;
+        }
+
+        .course-price, .book-price {
+            font-weight: 600;
+            color: var(--primary-blue);
+        }
+
+        /* Finances Sidebar */
+        .finances-sidebar {
+            background-color: var(--white);
+            border-radius: 12px;
+            box-shadow: var(--shadow-subtle);
+            padding: 16px;
+        }
+
+        .digital-card {
+            background: linear-gradient(135deg, var(--primary-blue), var(--secondary-blue));
+            color: white;
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 16px;
+        }
+
+        .card-balance {
+            font-size: 1.8rem;
+            font-weight: 700;
+        }
+
+        .card-actions {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+        }
+
+        .card-btn {
+            background-color: rgba(255,255,255,0.2);
+            border: none;
+            color: white;
+            padding: 10px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: var(--transition-smooth);
+        }
+
+        .card-btn:hover {
+            background-color: rgba(255,255,255,0.3);
+        }
+
+        .transactions-list {
+            margin-top: 16px;
+        }
+
+        .transaction {
+            display: flex;
+            justify-content: space-between;
+            padding: 12px 0;
+            border-bottom: 1px solid var(--background);
+        }
+
+        .transaction:last-child {
+            border-bottom: none;
+        }
+
+        .transaction-details {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .transaction-title {
+            font-weight: 500;
+        }
+
+        .transaction-date {
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+        }
+
+        .transaction-amount {
+            font-weight: 600;
+        }
+
+        .transaction-amount.positive {
+            color: var(--primary-blue);
+        }
+
+        .transaction-amount.negative {
+            color: #D93025;
+        }
+
+        /* Payment Methods */
+        .payment-methods {
+            margin-top: 20px;
+        }
+
+        .payment-method {
+            display: flex;
+            align-items: center;
+            background-color: var(--background);
+            padding: 12px;
+            border-radius: 8px;
+            margin-bottom: 12px;
+        }
+
+        .payment-method-icon {
+            margin-right: 12px;
+            color: var(--primary-blue);
+            font-size: 1.5rem;
+        }
+
+        .payment-method-details {
+            flex-grow: 1;
+        }
+
+        .payment-method-title {
+            font-weight: 500;
+        }
+
+        .payment-method-add {
+            color: var(--primary-blue);
+            cursor: pointer;
+        }
+
+        /* Responsive Adjustments */
+        @media (max-width: 992px) {
+            .courses-container, .library-container {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="app-container header-content">
+            <div class="logo">
+                <i class="ri-book-2-fill"></i>
+                ECO
+            </div>
+            <nav class="nav-menu">
+                <a href="#" class="nav-item active">
+                    <i class="ri-home-2-line"></i>
+                    Início
+                </a>
+                <a href="#" class="nav-item">
+                    <i class="ri-message-2-line"></i>
+                    Mensagens
+                </a>
+                <a href="#" class="nav-item">
+                    <i class="ri-user-line"></i>
+                    Perfil
+                </a>
+                <div class="notifications-btn">
+                    <i class="ri-notification-3-line"></i>
+                    <span class="notifications-badge">3</span>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <div class="tabs-container">
+        <div class="app-container tabs">
+            <div class="tab active" data-tab="feed">Feed</div>
+            <div class="tab" data-tab="courses">Cursos</div>
+            <div class="tab" data-tab="library">Biblioteca</div>
+            <div class="tab" data-tab="community">Comunidade</div>
+        </div>
+    </div>
+
+    <div class="app-container">
+        <!-- Feed Section -->
+        <section id="feed" class="content-section active">
+            <div class="post">
+                <div class="post-header">
+                    <div class="post-avatar">AS</div>
+                    <div>
+                        <h3>Ana Silva</h3>
+                        <p>Professor de Sustentabilidade</p>
+                    </div>
+                </div>
+                <div class="post-content">
+                    <p>Novas estratégias de ensino para educação ambiental em 2025! 🌍</p>
+                    <img src="/api/placeholder/600/400" alt="Sustentabilidade" style="width: 100%; height: auto; margin-top: 12px; border-radius: 8px;">
+                </div>
+                <div class="post-actions">
+                    <div class="action-btn">
+                        <i class="ri-thumb-up-line"></i> Curtir
+                    </div>
+                    <div class="action-btn">
+                        <i class="ri-chat-3-line"></i> Comentar
+                    </div>
+                    <div class="action-btn">
+                        <i class="ri-share-line"></i> Compartilhar
+                    </div>
+                </div>
+            </div>
+
+            <div class="post">
+                <div class="post-header">
+                    <div class="post-avatar">JP</div>
+                    <div>
+                        <h3>João Pereira</h3>
+                        <p>Pesquisador Ambiental</p>
+                    </div>
+                </div>
+                <div class="post-content">
+                    <p>Publicação do novo artigo sobre conservação marinha! 🌊</p>
+                    <video controls style="width: 100%; height: auto; margin-top: 12px; border-radius: 8px;">
+                        <source src="video.mp4" type="video/mp4">
+                        Seu navegador não suporta vídeos.
+                    </video>
+                </div>
+                <div class="post-actions">
+                    <div class="action-btn">
+                        <i class="ri-thumb-up-line"></i> Curtir
+                    </div>
+                    <div class="action-btn">
+                        <i class="ri-chat-3-line"></i> Comentar
+                    </div>
+                    <div class="action-btn">
+                        <i class="ri-share-line"></i> Compartilhar
+                    </div>
+                </div>
+            </div>
+
+            <div class="post">
+                <div class="post-header">
+                    <div class="post-avatar">MC</div>
+                    <div>
+                        <h3>Maria Costa</h3>
+                        <p>Especialista em Educação</p>
+                    </div>
+                </div>
+                <div class="post-content">
+                    <p>Artigo completo sobre metodologias de ensino inovadoras para 2025 📚</p>
+                    <div class="pdf-attachment">
+                        <i class="ri-file-pdf-line pdf-icon"></i>
+                        <div class="pdf-details">
+                            <span class="pdf-name">Metodologias_Inovadoras_2025.pdf</span>
+                            <span class="pdf-size">3.2 MB</span>
+                        </div>
+                        <a href="#" class="pdf-download">
+                            <i class="ri-download-line"></i>
+                        </a>
+                    </div>
+                </div>
+                <div class="post-actions">
+                    <div class="action-btn">
+                        <i class="ri-thumb-up-line"></i> Curtir
+                    </div>
+                    <div class="action-btn">
+                        <i class="ri-chat-3-line"></i> Comentar
+                    </div>
+                    <div class="action-btn">
+                        <i class="ri-share-line"></i> Compartilhar
+                    </div>
+                </div>
+            </div>
+
+            <div class="post">
+                <div class="post-header">
+                    <div class="post-avatar">RP</div>
+                    <div>
+                        <h3>Rafael Pinto</h3>
+                        <p>Fotógrafo Ambiental</p>
+                    </div>
+                </div>
+                <div class="post-content">
+                    <p>Cliques da expedição de conservação na Amazônia 🌳</p>
+                    <div class="image-gallery">
+                        <div class="gallery-grid">
+                            <img src="/api/placeholder/300/200" alt="Amazônia 1" style="border-radius: 8px;">
+                            <img src="/api/placeholder/300/200" alt="Amazônia 2" style="border-radius: 8px;">
+                            <img src="/api/placeholder/300/200" alt="Amazônia 3" style="border-radius: 8px;">
+                        </div>
+                    </div>
+                </div>
+                <div class="post-actions">
+                    <div class="action-btn">
+                        <i class="ri-thumb-up-line"></i> Curtir
+                    </div>
+                    <div class="action-btn">
+                        <i class="ri-chat-3-line"></i> Comentar
+                    </div>
+                    <div class="action-btn">
+                        <i class="ri-share-line"></i> Compartilhar
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Other sections can be added similarly -->
+         <section id="courses" class="content-section">
+            <div class="courses-container">
+                <div class="courses-main">
+                    <h2 style="margin-bottom: 16px;">Cursos em Destaque</h2>
+                    <div class="course-list">
+                        <div class="course-card">
+                            <div class="course-card-image">
+                                <img src="/api/placeholder/400/250" alt="Curso de Sustentabilidade">
+                            </div>
+                            <div class="course-card-content">
+                                <h3 class="course-title">Sustentabilidade Empresarial</h3>
+                                <p>Aprenda estratégias de gestão ambiental para empresas</p>
+                                <div class="course-details">
+                                    <span>12 aulas | Nível: Intermediário</span>
+                                    <span class="course-price">E$ 89,90</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="course-card">
+                            <div class="course-card-image">
+                                <img src="/api/placeholder/400/250" alt="Curso de Energias Renováveis">
+                            </div>
+                            <div class="course-card-content">
+                                <h3 class="course-title">Energias Renováveis</h3>
+                                <p>Fundamentos e aplicações de energia limpa</p>
+                                <div class="course-details">
+                                    <span>8 aulas | Nível: Básico</span>
+                                    <span class="course-price">E$ 59,90</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="course-card">
+                            <div class="course-card-image">
+                                <img src="/api/placeholder/400/250" alt="Curso de Conservação Marinha">
+                            </div>
+                            <div class="course-card-content">
+                                <h3 class="course-title">Conservação Marinha</h3>
+                                <p>Técnicas de preservação de ecossistemas marinhos</p>
+                                <div class="course-details">
+                                    <span>10 aulas | Nível: Avançado</span>
+                                    <span class="course-price">E$ 129,90</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="finances-sidebar">
+                    <div class="digital-card">
+                        <div class="card-header">
+                            <div>ECO Card</div>
+                            <i class="ri-bank-card-line"></i>
+                        </div>
+                        <div class="card-balance">E$ 250,00</div>
+                        <div class="card-actions">
+                            <button class="card-btn">Depositar</button>
+                            <button class="card-btn">Transferir</button>
+                        </div>
+                    </div>
+
+                    <div class="transactions-list">
+                        <h3>Transações Recentes</h3>
+                        <div class="transaction">
+                            <div class="transaction-details">
+                                <span class="transaction-title">Curso Sustentabilidade</span>
+                                <span class="transaction-date">22/05/2025</span>
+                            </div>
+                            <span class="transaction-amount negative">-E$ 89,90</span>
+                        </div>
+                        <div class="transaction">
+                            <div class="transaction-details">
+                                <span class="transaction-title">Depósito</span>
+                                <span class="transaction-date">20/05/2025</span>
+                            </div>
+                            <span class="transaction-amount positive">+E$ 150,00</span>
+                        </div>
+                    </div>
+
+                    <div class="payment-methods">
+                        <h3>Métodos de Pagamento</h3>
+                        <div class="payment-method">
+                            <i class="ri-bank-card-line payment-method-icon"></i>
+                            <div class="payment-method-details">
+                                <div class="payment-method-title">Cartão de Crédito</div>
+                                <div>**** **** **** 1234</div>
+                            </div>
+                        </div>
+                        <div class="payment-method">
+                            <i class="ri-wallet-line payment-method-icon"></i>
+                            <div class="payment-method-details">
+                                <div class="payment-method-title">Adicionar Método</div>
+                            </div>
+                            <div class="payment-method-add">
+                                <i class="ri-add-line"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section id="library" class="content-section">
+           <div class="library-container">
+                <div class="library-main">
+                    <h2 style="margin-bottom: 16px;">Biblioteca ECO</h2>
+                    <div class="book-list">
+                        <div class="book-card">
+                            <div class="book-card-image">
+                                <img src="/api/placeholder/400/250" alt="Livro de Sustentabilidade">
+                            </div>
+                            <div class="book-card-content">
+                                <h3 class="book-title">Sustentabilidade em Ação</h3>
+                                <p>Guia prático para implementação de práticas sustentáveis</p>
+                                <div class="book-details">
+                                    <span>Autor: Maria Silva</span>
+                                    <span class="book-price">E$ 45,90</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="book-card">
+                            <div class="book-card-image">
+                                <img src="/api/placeholder/400/250" alt="Livro de Economia Verde">
+                            </div>
+                            <div class="book-card-content">
+                                <h3 class="book-title">Economia Verde</h3>
+                                <p>Transformações econômicas para um futuro sustentável</p>
+                                <div class="book-details">
+                                    <span>Autor: João Pereira</span>
+                                    <span class="book-price">E$ 39,90</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="book-card">
+                            <div class="book-card-image">
+                                <img src="/api/placeholder/400/250" alt="Livro de Conservação Ambiental">
+                            </div>
+                            <div class="book-card-content">
+                                <h3 class="book-title">Conservação Ambiental</h3>
+                                <p>Estratégias e desafios para preservação do meio ambiente</p>
+                                <div class="book-details">
+                                    <span>Autor: Ana Costa</span>
+                                    <span class="book-price">E$ 55,90</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="finances-sidebar">
+                    <!-- Pode ser reaproveitado o mesmo layout de finanças da seção de cursos -->
+                    <div class="digital-card">
+                        <div class="card-header">
+                            <div>ECO Card</div>
+                            <i class="ri-bank-card-line"></i>
+                        </div>
+                        <div class="card-balance">E$ 250,00</div>
+                        <div class="card-actions">
+                            <button class="card-btn">Depositar</button>
+                            <button class="card-btn">Transferir</button>
+                        </div>
+                    </div>
+
+                    <div class="transactions-list">
+                        <h3>Transações Recentes</h3>
+                        <div class="transaction">
+                            <div class="transaction-details">
+                                <span class="transaction-title">Livro Sustentabilidade</span>
+                                <span class="transaction-date">22/05/2025</span>
+                            </div>
+                            <span class="transaction-amount negative">-E$ 45,90</span>
+                        </div>
+                        <div class="transaction">
+                            <div class="transaction-details">
+                                <span class="transaction-title">Depósito</span>
+                                <span class="transaction-date">20/05/2025</span>
+                            </div>
+                            <span class="transaction-amount positive">+E$ 150,00</span>
+                        </div>
+                    </div>
+
+                    <div class="payment-methods">
+                        <h3>Métodos de Pagamento</h3>
+                        <div class="payment-method">
+                            <i class="ri-bank-card-line payment-method-icon"></i>
+                            <div class="payment-method-details">
+                                <div class="payment-method-title">Cartão de Crédito</div>
+                                <div>**** **** **** 1234</div>
+                            </div>
+                        </div>
+                        <div class="payment-method">
+                            <i class="ri-wallet-line payment-method-icon"></i>
+                            <div class="payment-method-details">
+                                <div class="payment-method-title">Adicionar Método</div>
+                            </div>
+                            <div class="payment-method-add">
+                                <i class="ri-add-line"></i>
+                                    </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+         <section id="community" class="content-section">
+            <div class="app-container">
+                <h2>Comunidade ECO</h2>
+                <p>Em breve: Recursos de interação comunitária</p>
+            </div>
+        </section>
+    </div>
+
+    <div class="modal-overlay" id="payment-modal">
+        <div class="modal">
+            <div class="modal-header">
+                <h3>Confirmar Pagamento</h3>
+                <button class="modal-close">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label>Valor</label>
+                    <input type="text" placeholder="Valor a pagar">
+                </div>
+                <div class="form-group">
+                    <label>Método de Pagamento</label>
+                    <select>
+                        <option>Cartão ECO</option>
+                        <option>Cartão de Crédito</option>
+                        <option>PIX</option>
+                    </select>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="modal-btn btn-cancel">Cancelar</button>
+                <button class="modal-btn btn-confirm">Confirmar</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal para Depósito -->
+    <div class="modal-overlay" id="deposit-modal">
+        <div class="modal">
+            <div class="modal-header">
+                <h3>Depositar Fundos</h3>
+                <button class="modal-close">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label>Valor do Depósito</label>
+                    <input type="text" placeholder="Digite o valor">
+                </div>
+                <div class="form-group">
+                    <label>Método de Depósito</label>
+                    <select>
+                        <option>Cartão de Crédito</option>
+                        <option>Transferência Bancária</option>
+                        <option>PIX</option>
+                    </select>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="modal-btn btn-cancel">Cancelar</button>
+                <button class="modal-btn btn-confirm">Depositar</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+
+         const modalStyles = `
+            .modal-overlay {
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background-color: rgba(0,0,0,0.5);
+                display: none;
+                justify-content: center;
+                align-items: center;
+                z-index: 1000;
+            }
+
+            .modal {
+                background-color: white;
+                border-radius: 12px;
+                width: 90%;
+                max-width: 500px;
+                padding: 20px;
+                box-shadow: var(--shadow-medium);
+            }
+
+            .modal-header {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                margin-bottom: 20px;
+                border-bottom: 1px solid var(--background);
+                padding-bottom: 10px;
+            }
+
+            .modal-close {
+                background: none;
+                border: none;
+                font-size: 1.5rem;
+                cursor: pointer;
+                color: var(--text-secondary);
+            }
+
+            .modal-body {
+                margin-bottom: 20px;
+            }
+
+            .form-group {
+                margin-bottom: 15px;
+            }
+
+            .form-group label {
+                display: block;
+                margin-bottom: 8px;
+                font-weight: 500;
+            }
+
+            .form-group input,
+            .form-group select {
+                width: 100%;
+                padding: 10px;
+                border: 1px solid var(--background);
+                border-radius: 8px;
+            }
+
+            .modal-footer {
+                display: flex;
+                justify-content: flex-end;
+                gap: 12px;
+            }
+
+            .modal-btn {
+                padding: 10px 20px;
+                border-radius: 8px;
+                border: none;
+                cursor: pointer;
+            }
+
+            .btn-cancel {
+                background-color: var(--background);
+                color: var(--text-secondary);
+            }
+
+            .btn-confirm {
+                background-color: var(--primary-blue);
+                color: white;
+            }
+        `;
+
+        // Criar estilo de modal
+        const styleElement = document.createElement('style');
+        styleElement.textContent = modalStyles;
+        document.head.appendChild(styleElement);
+
+        // Funções de modal
+        function openModal(modalId) {
+            const modal = document.getElementById(modalId);
+            modal.style.display = 'flex';
+        }
+
+        function closeModal(modalId) {
+            const modal = document.getElementById(modalId);
+            modal.style.display = 'none';
+        }
+
+        // Adicionar event listeners para modais
+        document.querySelectorAll('.modal-close, .btn-cancel').forEach(el => {
+            el.addEventListener('click', () => {
+                const modal = el.closest('.modal-overlay');
+                modal.style.display = 'none';
+            });
+        });
+
+        // Event listeners para botões de ação do cartão
+        document.querySelectorAll('.card-btn').forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                const buttonText = e.target.textContent.trim();
+                if (buttonText === 'Depositar') {
+                    openModal('deposit-modal');
+                } else if (buttonText === 'Transferir') {
+                    // Pode adicionar lógica de transferência
+                    alert('Funcionalidade de transferência em desenvolvimento');
+                }
+            });
+        });
+        // Tab Navigation
+        const tabs = document.querySelectorAll('.tab');
+        const contentSections = document.querySelectorAll('.content-section');
+
+        tabs.forEach(tab => {
+            tab.addEventListener('click', () => {
+                const tabId = tab.getAttribute('data-tab');
+
+                // Remove active classes
+                tabs.forEach(t => t.classList.remove('active'));
+                contentSections.forEach(section => section.classList.remove('active'));
+
+                // Add active classes to selected tab and section
+                tab.classList.add('active');
+                document.getElementById(tabId).classList.add('active');
+            });
+        });
+    </script>
+</body>
+</html>
